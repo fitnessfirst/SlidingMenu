@@ -232,9 +232,10 @@ public class CustomViewBehind extends ViewGroup {
 						(x-getBehindWidth())*mScrollScale), y);				
 			}
 		}
-		if (vis == View.INVISIBLE)
-			Log.v(TAG, "behind INVISIBLE");
-		setVisibility(vis);
+//		if (vis == View.INVISIBLE)
+//			Log.v(TAG, "behind INVISIBLE");
+        if (vis != View.INVISIBLE)
+		    setVisibility(vis);
 	}
 
 	public int getMenuLeft(View content, int page) {
