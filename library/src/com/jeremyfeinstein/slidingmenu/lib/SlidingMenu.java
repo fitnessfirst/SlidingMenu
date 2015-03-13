@@ -72,6 +72,27 @@ public class SlidingMenu extends RelativeLayout {
 
     private OnCloseListener mCloseListener;
 
+
+    /**
+     * The listener interface for receiving onStartDrag events.
+     * The class that is interested in processing a onStartDrag
+     * event implements this interface, and the object created
+     * with that class is registered with a component using the
+     * component's <code>setOnStartDragListener<code> method. When
+     * the onStartDrag event occurs, that object's appropriate
+     * method is invoked
+     */
+    public interface OnStartDragListener {
+
+        /**
+         * On StartDrag.
+         *
+         * @param isMenuShowing indicates if the menu was visible when the onStartDrag event occurred
+         */
+        public void onStartDrag( boolean isMenuShowing );
+    }
+
+
     /**
      * The listener interface for receiving onOpen events.
      * The class that is interested in processing a onOpen
@@ -209,7 +230,7 @@ public class SlidingMenu extends RelativeLayout {
         // register the CustomViewBehind with the CustomViewAbove
         mViewAbove.setCustomViewBehind(mViewBehind);
         mViewBehind.setCustomViewAbove(mViewAbove);
-        mViewAbove.setOnPageChangeListener(new OnPageChangeListener() {
+        mViewAbove.setOnPageChangeListener(new CustomViewAbove.OnPageChangeListener() {
             public static final int POSITION_OPEN = 0;
             public static final int POSITION_CLOSE = 1;
 
@@ -912,6 +933,16 @@ public class SlidingMenu extends RelativeLayout {
     public void setOnClosedListener(OnClosedListener listener) {
         mViewAbove.setOnClosedListener(listener);
     }
+
+    /**
+     * Sets the OnStartDragListener. {@link OnStartDragListener#onStartDrag(boolean) OnStartDragListener.onStartDrag(boolean)} will be called when the user starts to drag the SlidingMenu
+     *
+     * @param listener the new OnOpenListener
+     */
+    public void setOnStartDragListener(OnStartDragListener listener) {
+        mViewAbove.setOnStartDragListener(listener);
+    }
+
 
     public static class SavedState extends BaseSavedState {
 
